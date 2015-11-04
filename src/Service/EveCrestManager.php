@@ -6,7 +6,7 @@ namespace EveCompare\Service;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Psr7\Response;
-use Monolog\Logger;
+use Psr\Log\LoggerInterface;
 
 class EveCrestManager {
 
@@ -16,7 +16,7 @@ class EveCrestManager {
 
     protected $log;
 
-    public function __construct(Client $client, Logger $logger, $base_uri){
+    public function __construct(Client $client, LoggerInterface $logger, $base_uri){
         $this->client = $client;
         $this->log = $logger;
 

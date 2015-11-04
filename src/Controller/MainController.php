@@ -71,6 +71,7 @@ class MainController implements ControllerProviderInterface {
 
         try {
             $regionResponse = $crest->fetchRegions();
+
         } catch(\Exception $e){
             return $this->getErrorResponse($e->getMessage(), $e->getCode());
         }
@@ -136,6 +137,10 @@ class MainController implements ControllerProviderInterface {
     }
 
     protected function getErrorResponse($message, $code = 400){
+       if ($code === 0){
+           $code = 500;
+       }
+
        return $this->getJsonResponse(json_encode([
            'message' => $message,
            'code' => $code

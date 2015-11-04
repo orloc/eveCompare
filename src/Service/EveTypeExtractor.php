@@ -14,7 +14,7 @@ class EveTypeExtractor {
 
     protected $white_list;
 
-    public function __construct($path, array $white_list = null){
+    public function __construct($path, array $white_list = []){
         $this->data = null;
         $this->path = $path;
 
