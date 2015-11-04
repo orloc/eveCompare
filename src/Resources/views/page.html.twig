@@ -1,7 +1,37 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <div class="col-xs-12 page-container">
+    <div class="col-xs-12 page-container" ng-app="evecompare" ng-controller="mainController">
+        <h1>Eve Compare</h1>
+
+        <form name="itemForm">
+            <label for="region">
+                Select A Region
+            </label>
+            <div class="input-group">
+                <span class="input-group-addon">
+                   X
+                </span>
+                <select class="form-control" ng-model="search.region" ng-options="region.id as region.name for region in regions"></select>
+            </div>
+
+            <label for="region">
+                Select an Item Type
+            </label>
+            <div class="input-group">
+                <span class="input-group-addon">
+                   X
+                </span>
+                <select class="form-control" ng-model="search.item" ng-options="item.id as item.name for item in types"></select>
+            </div>
+            <br>
+            <button class="btn btn-primary btn-block" type="submit">Search</button>
+        </form>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/app.js"></script>
+    <script src="/js/controller/mainController.js"></script>
 {% endblock %}
 

@@ -1,0 +1,1 @@
+angular.module('evecompare', ['angular-ladda']);

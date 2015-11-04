@@ -29,7 +29,7 @@ class MainController implements ControllerProviderInterface {
 
         $controllers->get('/', [$this, 'defaultAction']);
 
-        $controllers->get('/mineral_transaction', [$this, 'getMineralTypesAction']);
+        $controllers->get('/mineral_types', [$this, 'getMineralTypesAction']);
         $controllers->get('/regions', [$this, 'getRegionsAction']);
         $controllers->post('/market_history', [$this, 'getMarketHistoryAction']);
 
