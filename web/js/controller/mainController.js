@@ -12,6 +12,7 @@ angular.module('evecompare')
     };
 
     $scope.loading = true;
+    $scope.loading_submit = false;
 
     $scope.$watch('ref_data', function(d){
         if (d.types.length && d.regions.length){
@@ -88,8 +89,11 @@ angular.module('evecompare')
             return;
         }
 
+        $scope.loading_submit = true;
+
         $http.post('/market_history', $scope.search).then(function(data){
             $scope.data = data.data;
+            $scope.loading_submit = false;
         });
 
 
