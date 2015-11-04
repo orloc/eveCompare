@@ -1,1 +1,1 @@
-angular.module('evecompare', ['angular-ladda']);
+angular.module('evecompare', ['angular-ladda', 'nvd3']);

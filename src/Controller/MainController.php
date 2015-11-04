@@ -100,7 +100,31 @@ class MainController implements ControllerProviderInterface {
             return $this->getErrorResponse($e->getMessage(), $e->getCode());
         }
 
-        return $this->getJsonResponse(json_encode($marketHistory));
+        $data = [
+            [
+                'key' => 'lowPrice',
+                'values' => []
+            ],
+            [
+                'key' => 'avgPrice',
+                'values' => []
+            ],
+            [
+                'key' => 'highPrice',
+                'values' => []
+            ]
+        ];
+
+        foreach ($marketHistory as $r){
+            $date = new \DateTime($r['date']);
+            $date = intval($date->format('U'));
+
+            $data[0]['values'][] = [$date, $r['lowPrice']];
+            $data[1]['values'][] = [$date, $r['avgPrice']];
+            $data[2]['values'][] = [$date, $r['highPrice']];
+        }
+
+        return $this->getJsonResponse(json_encode($data));
 
     }
 

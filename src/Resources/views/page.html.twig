@@ -5,16 +5,16 @@
         <h1>Eve Compare</h1>
 
         <div class="row">
-            <form name="itemForm">
+            <form ng-submit="submitMarketForm()" name="itemForm">
                 <div class="col-sm-6">
                     <label for="region">
                         Select A Region
                     </label>
                     <div class="input-group">
                         <span class="input-group-addon">
-                           X
+                           <i class="fa" ng-class="{ 'fa-check': search.region !== null, 'fa-times': search.region === null}"></i>
                         </span>
-                        <select class="form-control" ng-model="search.region" ng-options="region.id as region.name for region in regions"></select>
+                        <select required class="form-control" ng-model="search.region" ng-options="region.id as region.name for region in regions"></select>
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -23,16 +23,17 @@
                     </label>
                     <div class="input-group">
                         <span class="input-group-addon">
-                           X
+                           <i class="fa" ng-class="{ 'fa-check': search.type !== null, 'fa-times': search.type === null}"></i>
                         </span>
-                        <select class="form-control" ng-model="search.item" ng-options="item.id as item.name for item in types"></select>
+                        <select required class="form-control" ng-model="search.type" ng-options="item.id as item.name for item in types"></select>
                     </div>
                 </div>
                 <div class="col-xs-12">
-                    <button class="btn btn-primary btn-block" type="submit">Search</button>
+                    <button ng-disabled="itemForm.$valid === false" class="btn btn-primary btn-block" type="submit">Search</button>
                 </div>
             </form>
 
+           <nvd3 ng-if="true" options="options" data="data"></nvd3>
         </div>
     </div>
 {% endblock %}
