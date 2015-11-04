@@ -12,3 +12,7 @@ $app->register(new Silex\Provider\MonologServiceProvider(), array(
     'monolog.logfile' => __DIR__.'/log/dev.log',
 ));
 
+$app->register(new \EveCompare\Provider\EveTypeExtractorProvider(), [
+    'evecompare.types.data_path' => __DIR__.'/data/typeids.csv'
+]);
+

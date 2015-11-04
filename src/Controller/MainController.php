@@ -26,6 +26,7 @@ class MainController implements ControllerProviderInterface {
         $controllers = $app['controllers_factory'];
 
         $controllers->get('/', [$this, 'defaultAction']);
+        $controllers->get('/', [$this, 'defaultAction']);
 
         return $controllers;
     }
@@ -35,6 +36,12 @@ class MainController implements ControllerProviderInterface {
      * @return mixed
      */
     public function defaultAction(){
+        $extractor = $this->app['evecompare.eve_extractor'];
+
+        $csv = $extractor->readFile()->asJson();
+
+        var_dump($csv);die;
+
         return $this->app['twig']->render('page.html.twig');
     }
 }
