@@ -12,17 +12,24 @@ class EveTypeExtractor {
 
     protected $path;
 
-    public function __construct($path){
+    protected $white_list;
+
+    public function __construct($path, array $white_list = null){
         $this->data = null;
         $this->path = $path;
+
+        $this->white_list = array_flip($white_list);
     }
 
     public function readFile(){
         $this->validatePath();
 
         $reader = Reader::createFromPath($this->path);
-        $this->data = $reader
-            ->addFilter($this->filterMinerals());
+        $this->data = $reader;
+
+        if (null !== $this->white_list){
+            $reader->addFilter($this->filterIds($this->white_list));
+        }
 
         return $this;
     }
@@ -39,9 +46,11 @@ class EveTypeExtractor {
         return $this->data->fetchAll();
     }
 
-    protected function filterMinerals(){
-        return function($val, $row){
-            var_dump($val);
+    protected function filterIds(array $white_list){
+        return function($val) use ($white_list){
+            if (isset($this->white_list[intval($val[0])])) {
+                return true;
+            }
         };
 
     }

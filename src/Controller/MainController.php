@@ -5,6 +5,7 @@ namespace EveCompare\Controller;
 
 use Silex\Application;
 use Silex\ControllerProviderInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class MainController
@@ -26,7 +27,7 @@ class MainController implements ControllerProviderInterface {
         $controllers = $app['controllers_factory'];
 
         $controllers->get('/', [$this, 'defaultAction']);
-        $controllers->get('/', [$this, 'defaultAction']);
+        $controllers->get('/mineral_transaction', [$this, 'getMineralTypesAction']);
 
         return $controllers;
     }
@@ -36,12 +37,18 @@ class MainController implements ControllerProviderInterface {
      * @return mixed
      */
     public function defaultAction(){
-        $extractor = $this->app['evecompare.eve_extractor'];
-
-        $csv = $extractor->readFile()->asJson();
-
-        var_dump($csv);die;
-
         return $this->app['twig']->render('page.html.twig');
     }
+
+    public function getMineralTypesAction(){
+        $extractor = $this->app['evecompare.eve_extractor'];
+
+        $jsonCsv = $extractor->readFile()->asJson();
+
+        return new Response($jsonCsv, 200, [
+            'Content-Type' => 'application/json'
+        ]);
+
+    }
+
 }

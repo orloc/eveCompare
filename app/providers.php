@@ -13,6 +13,7 @@ $app->register(new Silex\Provider\MonologServiceProvider(), array(
 ));
 
 $app->register(new \EveCompare\Provider\EveTypeExtractorProvider(), [
-    'evecompare.types.data_path' => __DIR__.'/data/typeids.csv'
+    'evecompare.types.data_path' => __DIR__.'/data/typeids.csv',
+    'evecompare.types.white_list' => $app['evecompare.config']['mineral_ids']
 ]);
 
