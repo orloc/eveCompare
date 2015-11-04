@@ -4,29 +4,36 @@
     <div class="col-xs-12 page-container" ng-app="evecompare" ng-controller="mainController">
         <h1>Eve Compare</h1>
 
-        <form name="itemForm">
-            <label for="region">
-                Select A Region
-            </label>
-            <div class="input-group">
-                <span class="input-group-addon">
-                   X
-                </span>
-                <select class="form-control" ng-model="search.region" ng-options="region.id as region.name for region in regions"></select>
-            </div>
+        <div class="row">
+            <form name="itemForm">
+                <div class="col-sm-6">
+                    <label for="region">
+                        Select A Region
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                           X
+                        </span>
+                        <select class="form-control" ng-model="search.region" ng-options="region.id as region.name for region in regions"></select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label for="region">
+                        Select an Item Type
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                           X
+                        </span>
+                        <select class="form-control" ng-model="search.item" ng-options="item.id as item.name for item in types"></select>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <button class="btn btn-primary btn-block" type="submit">Search</button>
+                </div>
+            </form>
 
-            <label for="region">
-                Select an Item Type
-            </label>
-            <div class="input-group">
-                <span class="input-group-addon">
-                   X
-                </span>
-                <select class="form-control" ng-model="search.item" ng-options="item.id as item.name for item in types"></select>
-            </div>
-            <br>
-            <button class="btn btn-primary btn-block" type="submit">Search</button>
-        </form>
+        </div>
     </div>
 {% endblock %}
 
