@@ -24,23 +24,30 @@ class EveCrestManager {
     }
 
     public function fetchMarketHistory($typeId, $regionId){
+        $uri = $this->getFullRequestUri(sprintf("market/%s/types/%s/history/", $regionId, $typeId));
 
+        $response = $this->tryRequest($uri);
+
+        $formattedResponse = $this->formatResponse($response);
+
+        return $formattedResponse['items'];
     }
 
+    /**
+     * Fetches Regions from the CREST Api - returns formated array
+     * @return array
+     */
     public function fetchRegions(){
 
         $uri = $this->getFullRequestUri('regions/');
 
-        try {
-            $response = $this->client->get($uri);
-        } catch (BadResponseException $e){
-            $this->log->error(sprintf('ERROR %s - Fetching %s with %s', $e->getCode(), $uri, $e->getMessage()));
-
-            throw $e;
-        }
+        $response = $this->tryRequest($uri);
 
         $formattedResponse = $this->formatResponse($response);
 
+        /**
+         * We need to grab the ID
+         */
         $tmp = [];
         foreach ($formattedResponse['items'] as $i){
             $tmp[] = [
@@ -51,6 +58,18 @@ class EveCrestManager {
 
         return $tmp;
 
+    }
+
+    protected function tryRequest($uri){
+        try {
+            $response = $this->client->get($uri);
+        } catch (BadResponseException $e){
+            $this->log->error(sprintf('ERROR %s - Fetching %s with %s', $e->getCode(), $uri, $e->getMessage()));
+
+            throw $e;
+        }
+
+        return $response;
     }
 
     protected function parseRegionUri($uri){

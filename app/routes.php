@@ -8,7 +8,10 @@
 $controller = new \EveCompare\Controller\MainController($app);
 
 
-$factory = $controller->connect($app);
+require_once __DIR__.'/middleware.php';
+
+$factory = $controller->connect($app)
+    ->before(checkPostContent());
 
 $app->mount('', $factory);
 
