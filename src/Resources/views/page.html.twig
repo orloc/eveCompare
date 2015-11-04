@@ -3,8 +3,11 @@
 {% block content %}
     <div class="col-xs-12 page-container" ng-app="evecompare" ng-controller="mainController">
         <h1>Eve Compare</h1>
-
-        <div class="row">
+        <div class="sk-chasing-dots" ng-show="loading === true" ng-cloak>
+            <div class="sk-child sk-dot1"></div>
+            <div class="sk-child sk-dot2"></div>
+        </div>
+        <div class="row" ng-show="loading === false" ng-cloak>
             <form ng-submit="submitMarketForm()" name="itemForm">
                 <div class="col-sm-6">
                     <label for="region">
@@ -14,7 +17,7 @@
                         <span class="input-group-addon">
                            <i class="fa" ng-class="{ 'fa-check': search.region !== null, 'fa-times': search.region === null}"></i>
                         </span>
-                        <select required class="form-control" ng-model="search.region" ng-options="region.id as region.name for region in regions"></select>
+                        <select required class="form-control" ng-model="search.region" ng-options="region.id as region.name for region in ref_data.regions"></select>
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -25,7 +28,7 @@
                         <span class="input-group-addon">
                            <i class="fa" ng-class="{ 'fa-check': search.type !== null, 'fa-times': search.type === null}"></i>
                         </span>
-                        <select required class="form-control" ng-model="search.type" ng-options="item.id as item.name for item in types"></select>
+                        <select required class="form-control" ng-model="search.type" ng-options="item.id as item.name for item in ref_data.types"></select>
                     </div>
                 </div>
                 <div class="col-xs-12">

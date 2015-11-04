@@ -6,6 +6,19 @@ angular.module('evecompare')
         type: null
     };
 
+    $scope.ref_data = {
+        types: [],
+        regions: []
+    };
+
+    $scope.loading = true;
+
+    $scope.$watch('ref_data', function(d){
+        if (d.types.length && d.regions.length){
+            $scope.loading = false;
+        }
+    }, true);
+
     $scope.data = [];
 
     $scope.options = {
@@ -29,7 +42,6 @@ angular.module('evecompare')
                 axisLabel: "Time (Day)",
                 showMaxMin: false,
                 axisLabelDistance: -5,
-                staggerLabels: true,
                 tickFormat: function (d) {
                     return d3.time.format('%x')(new Date(d));
                 }
@@ -54,7 +66,7 @@ angular.module('evecompare')
     };
 
     $http.get('/regions').then(function(data){
-        $scope.regions = data.data;
+        $scope.ref_data.regions = data.data;
     });
 
     $http.get('/mineral_types').then(function(data){
@@ -68,7 +80,7 @@ angular.module('evecompare')
             });
         });
 
-        $scope.types = formattedTypes;
+        $scope.ref_data.types = formattedTypes;
     });
 
     $scope.submitMarketForm = function(){
