@@ -94,7 +94,11 @@ class MainController implements ControllerProviderInterface {
 
         $crest = $this->app['evecompare.crest'];
 
-        $marketHistory = $crest->fetchMarketHistory(36, 10000029);
+        try {
+            $marketHistory = $crest->fetchMarketHistory($typeId, $regionId);
+        } catch (\Exception $e){
+            return $this->getErrorResponse($e->getMessage(), $e->getCode());
+        }
 
         return $this->getJsonResponse(json_encode($marketHistory));
 
