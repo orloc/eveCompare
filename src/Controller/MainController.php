@@ -28,6 +28,7 @@ class MainController implements ControllerProviderInterface {
 
         $controllers->get('/', [$this, 'defaultAction']);
         $controllers->get('/mineral_transaction', [$this, 'getMineralTypesAction']);
+        $controllers->get('/regions', [$this, 'getRegionsAction']);
 
         return $controllers;
     }
@@ -40,6 +41,10 @@ class MainController implements ControllerProviderInterface {
         return $this->app['twig']->render('page.html.twig');
     }
 
+    /**
+     * Returns a json response with generic mineral types
+     * @return Response
+     */
     public function getMineralTypesAction(){
         $extractor = $this->app['evecompare.eve_extractor'];
 
@@ -49,6 +54,17 @@ class MainController implements ControllerProviderInterface {
             'Content-Type' => 'application/json'
         ]);
 
+    }
+
+    public function getRegionsAction(){
+
+        $crest = $this->app['evecompare.crest'];
+
+        $regionResponse = $crest->fetchRegions();
+
+        return new Response(json_encode($regionResponse), 200, [
+            'Content-Type' => 'application/json'
+        ]);
     }
 
 }
