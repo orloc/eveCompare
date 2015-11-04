@@ -103,25 +103,25 @@ class MainController implements ControllerProviderInterface {
         $data = [
             [
                 'key' => 'lowPrice',
-                'values' => []
+                'values' => [],
             ],
             [
                 'key' => 'avgPrice',
-                'values' => []
+                'values' => [],
             ],
             [
                 'key' => 'highPrice',
-                'values' => []
+                'values' => [],
             ]
         ];
 
         foreach ($marketHistory as $r){
             $date = new \DateTime($r['date']);
-            $date = intval($date->format('U'));
+            $date = intval($date->format('U'))*1000;
 
-            $data[0]['values'][] = [$date, $r['lowPrice']];
-            $data[1]['values'][] = [$date, $r['avgPrice']];
-            $data[2]['values'][] = [$date, $r['highPrice']];
+            $data[0]['values'][] = [$date, abs($r['lowPrice'])];
+            $data[1]['values'][] = [$date, abs($r['avgPrice'])];
+            $data[2]['values'][] = [$date, abs($r['highPrice'])];
         }
 
         return $this->getJsonResponse(json_encode($data));

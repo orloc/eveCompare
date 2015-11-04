@@ -19,6 +19,7 @@
     "fontawesome": "~4.4.0",
     "angular-ladda": "~0.3.1",
     "lodash": "~3.10.1",
-    "angular-nvd3": "~1.0.2"
+    "angular-nvd3": "1.0.3",
+    "nvd3": "~1.8.1"
   }
 }

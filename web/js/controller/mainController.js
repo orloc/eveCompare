@@ -10,45 +10,45 @@ angular.module('evecompare')
 
     $scope.options = {
         chart: {
-            type: "cumulativeLineChart",
+            type: "lineWithFocusChart",
             height: 450,
             margin: {
                 top: 20,
                 right: 20,
-                bottom: 45,
-                left: 45
+                bottom: 55,
+                left: 55
             },
-            x: function(d){ return d[0];},
-            y: function(d){ return d[1];},
-            clipEdge: true,
-            transitionDuration: 500,
-            stacked: true,
-            useInteractiveGuideline: true,
-            zoom: {
-                enabled: true,
-                scaleExtend: [
-                    1, 10
-                ]
-
+            "duration": 100,
+            x: function (d) {
+                return d[0];
             },
-            useFixedDomain: false,
-            verticalOff: true,
-            unzoomEvenType: "dblclick.zoom",
+            y: function (d) {
+                return d[1];
+            },
             xAxis: {
                 axisLabel: "Time (Day)",
                 showMaxMin: false,
+                axisLabelDistance: -5,
                 staggerLabels: true,
-                tickFormat: function(d){
+                tickFormat: function (d) {
                     return d3.time.format('%x')(new Date(d));
                 }
             },
             yAxis: {
                 axisLabel: "ISK",
-                axisLabelDistance: -20,
-                tickFormat: function(d){
+                axisLabelDistance: -5,
+                tickFormat: function (d) {
                     return d3.format(',.2f')(d);
                 }
 
+            },
+            x2Axis: {
+                axisLabel: "Time (Day)",
+                showMaxMin: false,
+                axisLabelDistance: -5,
+                tickFormat: function (d) {
+                    return d3.time.format('%x')(new Date(d));
+                }
             }
         }
     };
